@@ -1,0 +1,18 @@
+# To boot the app run the following:
+# docker-compose run autogpt
+version: "3.9"
+
+services:
+  autogpt:
+    depends_on:
+      - redis
+    build: ./
+    env_file:
+      - .env
+    volumes:
+      - "./autogpt:/app"
+      - ".env:/app/.env"
+    profiles: ["exclude-from-up"]
+
+  redis:
+    image: "redis/redis-stack-server:latest"
